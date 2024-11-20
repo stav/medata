@@ -8,6 +8,8 @@
     <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
 </head>
 <body>
+    <label> <input type="checkbox" id="y2024" checked="checked"> 2024 </label>
+    <label> <input type="checkbox" id="y2025" checked="checked"> 2025 </label>
     <table id="example" class="display" width="100%"></table>
     <script>
     var dataSet = [
@@ -46,7 +48,10 @@
         [2025,"MedMutual","Giveback ","PPO","H5216-309",0,-124,null,null,null,null,null,null,null,-9350,null,null,null,null,null,-400,5,-2000],
     ];
 
-    new DataTable('#example', {
+    const y2024 = document.querySelector('#y2024')
+    const y2025 = document.querySelector('#y2025')
+
+    const table = new DataTable('#example', {
         columns: [
             { title: 'Year'},
             { title: 'Carrier'},
@@ -72,9 +77,16 @@
             { title: 'Hospital days'},
             { title: 'Hospital Stays'},
         ],
-        data: dataSet
+        data: dataSet,
+        order: [],
     });
-
+    table.search.fixed('range', function (searchStr, data, index) {
+        const year = data[0]
+        if ( year === 2024 && y2024.checked ) { return true }
+        if ( year === 2025 && y2025.checked ) { return true }
+    })
+    y2024.addEventListener('input', table.draw )
+    y2025.addEventListener('input', table.draw )
     </script>
 
 </body>
