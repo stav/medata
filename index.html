@@ -11,11 +11,24 @@
             background-color: midnightblue;
             color: aliceblue;
         }
+        #carrier {
+            margin-left: 12px;
+        }
     </style>
 </head>
 <body>
     <label> <input type="checkbox" id="y2024" checked="checked"> 2024 </label>
     <label> <input type="checkbox" id="y2025" checked="checked"> 2025 </label>
+
+    <select id="carrier">
+        <option value="ALL"></option>
+        <option value="anthem">Anthem</option>
+        <option value="humana">Humana</option>
+        <option value="devoted">Devoted</option>
+        <option value="united">United</option>
+        <option value="medmutual">MedMutual</option>
+    </select>
+
     <table id="example" class="display" width="100%"></table>
     <script src="data.js"></script>
     <script src="index.js"></script>
