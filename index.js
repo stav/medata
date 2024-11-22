@@ -30,6 +30,7 @@ const table = new DataTable('#example', {
     ],
     data: dataSet,
     order: [],
+    select: true,
 });
 
 table.search.fixed('year', function (searchStr, data, index) {
