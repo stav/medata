@@ -3,6 +3,13 @@ const y2025 = document.querySelector('#y2025')
 const carry = document.querySelector('#carrier')
 
 const table = new DataTable('#example', {
+    layout: {
+        topStart: {
+            buttons: [
+                'colvis'
+            ],
+        },
+    },
     columns: [
         { title: 'Year'},
         { title: 'Carrier'},
@@ -31,6 +38,7 @@ const table = new DataTable('#example', {
     data: dataSet,
     order: [],
     select: true,
+    colReorder: true,
 });
 
 table.search.fixed('year', function (searchStr, data, index) {
