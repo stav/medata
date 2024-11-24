@@ -9,6 +9,8 @@ import './style.css'
 import {LicenseManager} from "@ag-grid-enterprise/core";
 LicenseManager.setLicenseKey("<your license key>")
 
+import cars from '../data/cars.json'
+
 class SimpleGrid {
     private readonly gridOptions: GridOptions = <GridOptions>{};
 
@@ -19,11 +21,7 @@ class SimpleGrid {
                 {field: "model"},
                 {field: "price"}
             ],
-            rowData: [
-                {make: "Toyota", model: "Celica", price: 35000},
-                {make: "Ford", model: "Mondeo", price: 32000},
-                {make: "Porsche", model: "Boxster", price: 72000}
-            ],
+            rowData: cars,
             defaultColDef: {
                 flex: 1,
             },
