@@ -1,12 +1,13 @@
 {
-
   "name": "medata",
   "version": "0.0.0",
   "description": "A Medicare extra dimensional spreadsheet",
   "private": true,
   "packageManager": "bun@1.1.36",
   "type": "module",
-  "module": "index.ts",
+  "module": "./src/main.ts",
+  "license": "MIT",
+  "homepage": "https://github.com/stav/medata",
   "author": {
     "name": "Steven Almeroth",
     "email": "steven.almeroth@gmail.com"
@@ -16,8 +17,18 @@
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
-  "devDependencies": {
+  "peerDependencies": {
     "typescript": "~5.6.2",
     "vite": "^5.4.10"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "dependencies": {
+    "@ag-grid-community/client-side-row-model": "latest",
+    "@ag-grid-community/core": "latest",
+    "@ag-grid-community/styles": "latest",
+    "@ag-grid-enterprise/core": "latest",
+    "@ag-grid-enterprise/status-bar": "latest"
   }
 }
