@@ -1,10 +1,10 @@
-import {createGrid, type GridOptions, ModuleRegistry} from "@ag-grid-community/core";
+import { createGrid, type GridApi, type GridOptions, ModuleRegistry } from "@ag-grid-community/core";
 
-import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
-import {StatusBarModule} from "@ag-grid-enterprise/status-bar";
+import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
+import { StatusBarModule } from "@ag-grid-enterprise/status-bar";
 ModuleRegistry.registerModules([ClientSideRowModelModule, StatusBarModule]);
 
-import {LicenseManager} from "@ag-grid-enterprise/core";
+import { LicenseManager } from "@ag-grid-enterprise/core";
 LicenseManager.setLicenseKey("<your license key>")
 
 import './style.css'
@@ -13,13 +13,14 @@ import plans from '../data/plans.json'
 
 class SimpleGrid {
     private readonly gridOptions: GridOptions = <GridOptions>{};
+    matrix: GridApi<any>;
 
     constructor() {
         this.gridOptions = {
             columnDefs: [
-                {field: "Year"},
-                {field: "Carrier"},
-                {field: "Name"}
+                { field: "Year" },
+                { field: "Carrier" },
+                { field: "Name" }
             ],
             rowData: plans,
             defaultColDef: {
@@ -33,11 +34,27 @@ class SimpleGrid {
                     }
                 ]
             },
+            isExternalFilterPresent: () => true,
+            doesExternalFilterPass: () => true,
         };
 
         const eGridDiv: HTMLElement = <HTMLElement>document.querySelector('#app');
-        createGrid(eGridDiv, this.gridOptions);
+        this.matrix = <GridApi>createGrid(eGridDiv, this.gridOptions);
+    }
+
+    public externalFilterChanged() {
+        // this.matrix.onFilterChanged();
+        console.log('this', this)
+        return null
     }
 }
 
-new SimpleGrid();
+const grid = new SimpleGrid();
+grid.externalFilterChanged.bind(grid)
+
+if (typeof window !== "undefined") {
+    // Attach external event handlers to window so they can be called from index.html
+    (<any>window).externalFilterChanged = grid.externalFilterChanged;
+}
+
+console.log('gird', grid)
