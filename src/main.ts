@@ -1,4 +1,4 @@
-import {createGrid, GridOptions, ModuleRegistry} from "@ag-grid-community/core";
+import {createGrid, type GridOptions, ModuleRegistry} from "@ag-grid-community/core";
 import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
 import {StatusBarModule} from "@ag-grid-enterprise/status-bar";
 
