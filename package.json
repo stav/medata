@@ -29,6 +29,8 @@
   "dependencies": {
     "@ag-grid-community/client-side-row-model": "latest",
     "@ag-grid-community/core": "latest",
-    "@ag-grid-community/styles": "latest"
+    "@ag-grid-community/styles": "latest",
+    "@ag-grid-enterprise/core": "latest",
+    "@ag-grid-enterprise/status-bar": "latest"
   }
 }
