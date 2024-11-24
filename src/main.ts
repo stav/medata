@@ -1,24 +1,45 @@
+import {createGrid, GridOptions, ModuleRegistry} from "@ag-grid-community/core";
+import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
+import {StatusBarModule} from "@ag-grid-enterprise/status-bar";
+
+ModuleRegistry.registerModules([ClientSideRowModelModule, StatusBarModule]);
+
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+import {LicenseManager} from "@ag-grid-enterprise/core";
+LicenseManager.setLicenseKey("<your license key>")
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+class SimpleGrid {
+    private readonly gridOptions: GridOptions = <GridOptions>{};
+
+    constructor() {
+        this.gridOptions = {
+            columnDefs: [
+                {field: "make"},
+                {field: "model"},
+                {field: "price"}
+            ],
+            rowData: [
+                {make: "Toyota", model: "Celica", price: 35000},
+                {make: "Ford", model: "Mondeo", price: 32000},
+                {make: "Porsche", model: "Boxster", price: 72000}
+            ],
+            defaultColDef: {
+                flex: 1,
+            },
+            statusBar: {
+                statusPanels: [
+                    {
+                        statusPanel: 'agTotalAndFilteredRowCountComponent',
+                        align: 'left',
+                    }
+                ]
+            },
+        };
+
+        const eGridDiv: HTMLElement = <HTMLElement>document.querySelector('#app');
+        createGrid(eGridDiv, this.gridOptions);
+    }
+}
+
+new SimpleGrid();
