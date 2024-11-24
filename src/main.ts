@@ -9,7 +9,7 @@ LicenseManager.setLicenseKey("<your license key>")
 
 import './style.css'
 
-import cars from '../data/cars.json'
+import plans from '../data/plans.json'
 
 class SimpleGrid {
     private readonly gridOptions: GridOptions = <GridOptions>{};
@@ -17,11 +17,11 @@ class SimpleGrid {
     constructor() {
         this.gridOptions = {
             columnDefs: [
-                {field: "make"},
-                {field: "model"},
-                {field: "price"}
+                {field: "Year"},
+                {field: "Carrier"},
+                {field: "Name"}
             ],
-            rowData: cars,
+            rowData: plans,
             defaultColDef: {
                 flex: 1,
             },
