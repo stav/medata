@@ -55,17 +55,11 @@ class SimpleGrid {
     const eGridDiv: HTMLElement = <HTMLElement>document.querySelector("#app");
     this.matrix = <GridApi>createGrid(eGridDiv, this.gridOptions);
   }
-
-  public externalFilterChanged() {
-    console.log("this", this);
-    this.matrix.onFilterChanged();
-  }
 }
 
 const grid = new SimpleGrid();
-// grid.externalFilterChanged.bind(grid);
 
 if (typeof window !== "undefined") {
   // Attach external event handlers to window so they can be called from index.html
-  (<any>window).externalFilterChanged = grid.externalFilterChanged.bind(grid);
+  (<any>window).externalFilterChanged = () => grid.matrix.onFilterChanged();
 }
