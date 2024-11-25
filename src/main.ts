@@ -2,6 +2,7 @@ import {
   createGrid,
   type GridApi,
   type GridOptions,
+  type IRowNode,
   ModuleRegistry,
 } from "@ag-grid-community/core";
 
@@ -40,16 +41,15 @@ class SimpleGrid {
         if (this.e2024Cbx.checked && this.e2025Cbx.checked) return false;
         return true;
       },
-      //   function doesExternalFilterPass(node: IRowNode<IOlympicData>): boolean {
-      doesExternalFilterPass: (node) => {
-        console.log(this.e2024Cbx.checked, this.e2025Cbx.checked, "Year", node.data["Year"]);
+      doesExternalFilterPass: (node: IRowNode) => {
         if (!this.e2024Cbx.checked && node.data['Year'] == 2024) return false;
         if (!this.e2025Cbx.checked && node.data['Year'] == 2025) return false;
         return true;
       },
     };
 
-    const eGridDiv: HTMLElement = <HTMLElement>document.querySelector("#app");
+    const eGridDiv = <HTMLElement>document.querySelector("#app");
+
     this.matrix = <GridApi>createGrid(eGridDiv, gridOptions);
   }
 }
