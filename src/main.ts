@@ -1,43 +1,60 @@
-import {createGrid, type GridOptions, ModuleRegistry} from "@ag-grid-community/core";
+import {
+  createGrid,
+  type GridApi,
+  type GridOptions,
+  type IRowNode,
+  ModuleRegistry,
+} from "@ag-grid-community/core";
 
-import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
-import {StatusBarModule} from "@ag-grid-enterprise/status-bar";
+import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
+import { StatusBarModule } from "@ag-grid-enterprise/status-bar";
 ModuleRegistry.registerModules([ClientSideRowModelModule, StatusBarModule]);
 
-import {LicenseManager} from "@ag-grid-enterprise/core";
-LicenseManager.setLicenseKey("<your license key>")
+import { LicenseManager } from "@ag-grid-enterprise/core";
+LicenseManager.setLicenseKey("<your license key>");
 
-import './style.css'
+import "./style.css";
 
-import plans from '../data/plans.json'
+import plans from "../data/plans.json";
 
 class SimpleGrid {
-    private readonly gridOptions: GridOptions = <GridOptions>{};
+  e2024Cbx = <HTMLInputElement>document.querySelector("#yr2024");
+  e2025Cbx = <HTMLInputElement>document.querySelector("#yr2025");
+  matrix: GridApi<any>;
 
-    constructor() {
-        this.gridOptions = {
-            columnDefs: [
-                {field: "Year"},
-                {field: "Carrier"},
-                {field: "Name"}
-            ],
-            rowData: plans,
-            defaultColDef: {
-                flex: 1,
-            },
-            statusBar: {
-                statusPanels: [
-                    {
-                        statusPanel: 'agTotalAndFilteredRowCountComponent',
-                        align: 'left',
-                    }
-                ]
-            },
-        };
+  constructor() {
+    const gridOptions: GridOptions = {
+      columnDefs: [{ field: "Year" }, { field: "Carrier" }, { field: "Name" }],
+      rowData: plans,
+      defaultColDef: {
+        flex: 1,
+      },
+      statusBar: {
+        statusPanels: [
+          {
+            statusPanel: "agTotalAndFilteredRowCountComponent",
+            align: "left",
+          },
+        ],
+      },
+      isExternalFilterPresent: () => {
+        if (this.e2024Cbx.checked && this.e2025Cbx.checked) return false;
+        return true;
+      },
+      doesExternalFilterPass: (node: IRowNode) => {
+        if (!this.e2024Cbx.checked && node.data['Year'] == 2024) return false;
+        if (!this.e2025Cbx.checked && node.data['Year'] == 2025) return false;
+        return true;
+      },
+    };
 
-        const eGridDiv: HTMLElement = <HTMLElement>document.querySelector('#app');
-        createGrid(eGridDiv, this.gridOptions);
-    }
+    const eGridDiv = <HTMLElement>document.querySelector("#app");
+
+    this.matrix = <GridApi>createGrid(eGridDiv, gridOptions);
+
+    this.e2024Cbx.addEventListener('input', () => this.matrix.onFilterChanged() )
+    this.e2025Cbx.addEventListener('input', () => this.matrix.onFilterChanged() )
+  }
 }
 
-new SimpleGrid();
+const grid = new SimpleGrid();
