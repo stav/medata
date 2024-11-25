@@ -17,13 +17,12 @@ import "./style.css";
 import plans from "../data/plans.json";
 
 class SimpleGrid {
-  private readonly gridOptions: GridOptions = <GridOptions>{};
+  e2024Cbx = <HTMLInputElement>document.querySelector("#yr2024");
+  e2025Cbx = <HTMLInputElement>document.querySelector("#yr2025");
   matrix: GridApi<any>;
-  e2024Cbx: HTMLInputElement;
-  e2025Cbx: HTMLInputElement;
 
   constructor() {
-    this.gridOptions = {
+    const gridOptions: GridOptions = {
       columnDefs: [{ field: "Year" }, { field: "Carrier" }, { field: "Name" }],
       rowData: plans,
       defaultColDef: {
@@ -50,10 +49,8 @@ class SimpleGrid {
       },
     };
 
-    this.e2024Cbx = <HTMLInputElement>document.querySelector("#yr2024");
-    this.e2025Cbx = <HTMLInputElement>document.querySelector("#yr2025");
     const eGridDiv: HTMLElement = <HTMLElement>document.querySelector("#app");
-    this.matrix = <GridApi>createGrid(eGridDiv, this.gridOptions);
+    this.matrix = <GridApi>createGrid(eGridDiv, gridOptions);
   }
 }
 
