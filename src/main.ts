@@ -51,12 +51,10 @@ class SimpleGrid {
     const eGridDiv = <HTMLElement>document.querySelector("#app");
 
     this.matrix = <GridApi>createGrid(eGridDiv, gridOptions);
+
+    this.e2024Cbx.addEventListener('input', () => this.matrix.onFilterChanged() )
+    this.e2025Cbx.addEventListener('input', () => this.matrix.onFilterChanged() )
   }
 }
 
 const grid = new SimpleGrid();
-
-if (typeof window !== "undefined") {
-  // Attach external event handlers to window so they can be called from index.html
-  (<any>window).externalFilterChanged = () => grid.matrix.onFilterChanged();
-}
