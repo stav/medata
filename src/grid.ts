@@ -35,7 +35,7 @@ class SimpleGrid {
         { field: "Spc copay" },
         { field: "MOOP" },
         { field: "OTC" },
-        { field: "Card" },
+        { field: "Card", cellDataType: "number" },
         { field: "Dental" },
         { field: "Vision" },
         { field: "Hospital /day" },

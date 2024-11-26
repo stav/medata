@@ -15,14 +15,16 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "convert": "csvtojson --checkType=true ./data/plans.csv >| ./data/plans.json"
   },
   "peerDependencies": {
     "typescript": "~5.6.2",
     "vite": "^5.4.10"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "csvtojson": "^2.0.10"
   },
   "dependencies": {
     "@ag-grid-community/client-side-row-model": "latest",
