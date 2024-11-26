@@ -1,4 +1,8 @@
-import { createGrid, type GridOptions } from "@ag-grid-community/core";
+import {
+  createGrid,
+  type GridOptions,
+  type ISetFilterParams,
+} from "@ag-grid-community/core";
 
 import plans from "../data/plans.json";
 
@@ -7,8 +11,35 @@ class SimpleGrid {
 
   constructor() {
     this.gridOptions = {
-      columnDefs: [{ field: "Year" }, { field: "Carrier" }, { field: "Name" }],
       rowData: plans,
+      columnDefs: [
+        { field: "Year" },
+        {
+          field: "Carrier",
+          filter: "agSetColumnFilter",
+          filterParams: {
+            applyMiniFilterWhileTyping: true,
+          } as ISetFilterParams,
+        },
+        {
+          field: "Name",
+          filter: "agSetColumnFilter",
+          filterParams: {
+            applyMiniFilterWhileTyping: true,
+          } as ISetFilterParams,
+        },
+        { field: "Type" },
+        { field: "ID" },
+        { field: "Premium" },
+        { field: "Giveback" },
+        { field: "Spc copay" },
+        { field: "MOOP" },
+        { field: "OTC" },
+        { field: "Card" },
+        { field: "Dental" },
+        { field: "Vision" },
+        { field: "Hospital /day" },
+      ],
       defaultColDef: {
         flex: 1,
       },
