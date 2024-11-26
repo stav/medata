@@ -8,10 +8,11 @@ import {
 import plans from "../data/plans.json";
 
 class SimpleGrid {
+  eSelOCbx = <HTMLInputElement>document.querySelector("#selectedOnly");
   e2024Cbx = <HTMLInputElement>document.querySelector("#yr2024");
   e2025Cbx = <HTMLInputElement>document.querySelector("#yr2025");
   eCarrSel = <HTMLInputElement>document.querySelector("#carrier");
-  inputs = [this.e2024Cbx, this.e2025Cbx, this.eCarrSel];
+  inputs = [this.eSelOCbx, this.e2024Cbx, this.e2025Cbx, this.eCarrSel];
   matrix: GridApi<any>;
 
   constructor() {
@@ -30,6 +31,9 @@ class SimpleGrid {
         mode: "multiRow",
         enableClickSelection: true,
       },
+      onRowClicked: (event) => {
+        this.matrix.onFilterChanged()
+      },
       defaultColDef: {
         flex: 1,
       },
@@ -43,6 +47,7 @@ class SimpleGrid {
       },
       isExternalFilterPresent: () => {
         if (
+          !this.eSelOCbx.checked &&
           this.e2024Cbx.checked &&
           this.e2025Cbx.checked &&
           this.eCarrSel.value === "ALL"
@@ -52,6 +57,7 @@ class SimpleGrid {
         return true;
       },
       doesExternalFilterPass: (node: IRowNode) => {
+        if (this.eSelOCbx.checked && !node.isSelected()) return false;
         if (!this.e2024Cbx.checked && node.data["Year"] == 2024) return false;
         if (!this.e2025Cbx.checked && node.data["Year"] == 2025) return false;
         if (
