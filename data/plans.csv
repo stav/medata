@@ -1,0 +1,35 @@
+Year,Carrier,Name,Type,ID,Description,Premium,Giveback,M Deductible,"D Deductible (Tier 3, Tier 4, Tier 5)",PCP copay,Spc copay,Ambulance,ER,Urgent,MOOP,OTC,Card,Dental,Vision,Hearing,Hospital /day,Hospital days,Hospital Stays 
+2024,Anthem,MA 2,HMO-POS,H3655-042-000,2024 Anthem MA 2,-300,0,0,0,0,-35,-260,-90,-30,-3400,360,600,2000,225,,-350,5,-1750
+2025,Anthem,MA,HMO-POS,H3655-045-004,2025 Anthem MA,0,0,0,0,0,-30,,-140,-30,-4150,428,600,2000,300,,-310,7,-2170
+2025,Anthem,Full Dual Adv. 2,HMO-POS D-SNP,H3655-049-000,2025 Anthem Full Dual Adv. 2,0,0,,,,,,,,-9350,0,2820,4500,400,,,,0
+2025,Anthem,Full Dual Adv.,HMO-POS D-SNP,H3655-033-000,2025 Anthem Full Dual Adv.,0,0,,,,,,,,-9350,2100,500,4000,400,,,,0
+2025,Anthem,Chronic Care,HMO-POS C-SNP,H3655-047-000,2025 Anthem Chronic Care,0,0,,,,,,,,-3900,280,500,2500,300,,-310,7,-2170
+2025,Anthem,Veteran,PPO,H4036-022-000,2025 Anthem Veteran,0,1800,,,,,,,,-5900,600,500,2000,225,,-350,5,-1750
+2025,Humana,Gold Plus,HMO-POS,H6622-022-000,2025 Humana Gold Plus,0,2,0,0,0,-35,-315,-120,-55,-4700,500,0,4000,150,0,-395,5,-1975
+2025,Humana,Gold Plus,HMO,H6622-055-000,2025 Humana Gold Plus,-324,0,0,-200,0,-45,,,,-6750,0,0,1000,300,0,-460,5,-2300
+2025,Humana,Gold Plus,HMO D-SNP,H6622-015-000,2025 Humana Gold Plus,0,0,,,,,,,,-9350,0,1200,6000,450,,,,
+2025,Humana,Choice Giveback,PPO,H5216-309-000,2025 Humana Choice Giveback,0,1488,-425,-510,0,-40,-315,-100,-45,-9350,,,,,,-400,5,-2375
+2025,Humana,"USAA Honor Giveback (MA only, no drugs)",PPO,H5216-218-000,"2025 Humana USAA Honor Giveback (MA only, no drugs)",0,1200,0,-350,-15,-45,,,,-9350,600,0,2000,200,,-425,5,-2125
+2025,Humana,USAA Honor Giveback with Rx,PPO,H5216-307-000,2025 Humana USAA Honor Giveback with Rx,0,912,0,-350,0,-45,,,,-8850,200,0,3000,150,,-425,5,-2125
+2025,Devoted,Giveback ,HMO,H2697-003-000,2025 Devoted Giveback ,0,2096.4,,,,,,,,-6750,0,0,150,150,,-450,5,-2250
+2025,Devoted,Core,HMO,H2697-001-000,2025 Devoted Core,0,0,,,,,,,,-4900,0,0,500,500,,-325,6,-1950
+2025,Devoted,Choice ,PPO,H2526-001-000,2025 Devoted Choice ,0,0,,,,,,,,-5300,0,0,500,500,,-380,5,-1900
+2025,Devoted,Choice Extra,PPO,H2526-003-000,2025 Devoted Choice Extra,0,0,0,-590,0,-45,-290,-125,-45,-5300,0,984,500,500,,-395,5,-1975
+2025,Devoted,Premium ,HMO,H2697-002-000,2025 Devoted Premium ,-6,0,,,,,,,,-4500,0,0,500,500,,-300,6,-1800
+2024,Devoted,Dual,HMO-POS D-SNP,,2024 Devoted Dual,0,0,,,,,,,,-3900,,,,,,-295,6,-1770
+2024,Devoted,Dual Plus,HMO-POS D-SNP,,2024 Devoted Dual Plus,,,,,,,,,,,,,,,,,,0
+2025,Devoted,Dual,HMO-POS D-SNP,,2025 Devoted Dual,0,0,,,,,,,,-4500,,1200,250,250,,-300,6,
+2025,Devoted,Dual Plus,HMO-POS D-SNP,,2025 Devoted Dual Plus,0,0,,,,,,,,-9350,,3048,250,250,,,,
+2024,United,AARP OH-5,HMO-POS,H5253-144-001,2024 United AARP OH-5,0,0,,,,,,,,-4500,160,,1250,250,0,-325,5,-1625
+2024,United,AARP OH-10,HMO-POS,,2024 United AARP OH-10,,,,,,,,,,,,,,,,,,
+2024,United,AARP OH-17,HMO-POS,,2024 United AARP OH-17,,,,,,,,,,,,,,,,,,
+2025,United,AARP OH-5,HMO-POS,H5253-144-001,2025 United AARP OH-5,0,0,0,0,0,-40,-165,-125,-55,-4500,160,0,0,150,0,-325,5,-1625
+2025,United,AARP OH-10,HMO-POS,H5253-131-000,2025 United AARP OH-10,0,0,0,,0,-50,,,,-6700,240,,4000,150,0,-395,6,-2370
+2025,United,AARP OH-17 Giveback,HMO-POS,H5253-135-000,2025 United AARP OH-17 Giveback,0,72,0,0,0,-55,-275,-110,-45,-7900,0,,0,100,0,-475,5,-2375
+2025,United,Dual Complete OH-S3,HMO-POS D-SNP,H1285-002-000,2025 United Dual Complete OH-S3,0,0,0,0,0,0,0,0,0,0,0,3240,2500,350,2500,0,0,0
+2025,MedMutual,Signature,HMO-POS,H6723-006-006,2025 MedMutual Signature,0,0,0,0,0,0,-200,-110,-25,-3300,400,0,3200,300,0,-325,6,-1950
+2025,MedMutual,Classic,HMO,H6723-001-001,2025 MedMutual Classic,0,0,0,-95,0,-25,-225,-110,-30,-4600,360,0,3000,200,0,-290,7,-2030
+2025,MedMutual,Secure,HMO-POS,H6723-005-001,2025 MedMutual Secure,-468,0,0,0,0,-20,-200,-110,-20,-3350,460,600,2500,200,,-350,6,-2100
+2025,MedMutual,Choice,HMO,H6723-002-001,2025 MedMutual Choice,-480,0,0,55,0,-25,-210,-110,-40,-3700,0,0,1000,200,,-335,5,-1675
+2025,MedMutual,Plus,HMO,H6723-003-001,2025 MedMutual Plus,-1080,0,,,,,,,,-1080,,,,,,-350,6,-2100
+2025,MedMutual,Giveback ,PPO,H5216-309,2025 MedMutual Giveback ,0,-124,,,,,,,,-9350,,,,,,-400,5,-2000
