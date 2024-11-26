@@ -12,6 +12,10 @@ class SimpleGrid {
       defaultColDef: {
         flex: 1,
       },
+      rowSelection: {
+        mode: "multiRow",
+        enableClickSelection: true,
+      },
       statusBar: {
         statusPanels: [
           {
