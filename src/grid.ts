@@ -10,12 +10,26 @@ import plans from "../data/plans.json";
 class SimpleGrid {
   e2024Cbx = <HTMLInputElement>document.querySelector("#yr2024");
   e2025Cbx = <HTMLInputElement>document.querySelector("#yr2025");
+  eCarrSel = <HTMLInputElement>document.querySelector("#carrier");
+  inputs = [this.e2024Cbx, this.e2025Cbx, this.eCarrSel];
   matrix: GridApi<any>;
 
   constructor() {
     const gridOptions: GridOptions = {
-      columnDefs: [{ field: "Year" }, { field: "Carrier" }, { field: "Name" }],
       rowData: plans,
+      columnDefs: [
+        { field: "Year" },
+        { field: "Carrier" },
+        { field: "Name" },
+        { field: "Type" },
+        { field: "ID" },
+        { field: "Premium" },
+        { field: "Giveback" },
+      ],
+      rowSelection: {
+        mode: "multiRow",
+        enableClickSelection: true,
+      },
       defaultColDef: {
         flex: 1,
       },
@@ -28,12 +42,24 @@ class SimpleGrid {
         ],
       },
       isExternalFilterPresent: () => {
-        if (this.e2024Cbx.checked && this.e2025Cbx.checked) return false;
+        if (
+          this.e2024Cbx.checked &&
+          this.e2025Cbx.checked &&
+          this.eCarrSel.value === "ALL"
+        ) {
+          return false;
+        }
         return true;
       },
       doesExternalFilterPass: (node: IRowNode) => {
         if (!this.e2024Cbx.checked && node.data["Year"] == 2024) return false;
         if (!this.e2025Cbx.checked && node.data["Year"] == 2025) return false;
+        if (
+          this.eCarrSel.value !== "ALL" &&
+          this.eCarrSel.value != node.data["Carrier"].toLowerCase()
+        ) {
+          return false;
+        }
         return true;
       },
     };
@@ -42,12 +68,9 @@ class SimpleGrid {
 
     this.matrix = <GridApi>createGrid(eGridDiv, gridOptions);
 
-    this.e2024Cbx.addEventListener("input", () =>
-      this.matrix.onFilterChanged()
-    );
-    this.e2025Cbx.addEventListener("input", () =>
-      this.matrix.onFilterChanged()
-    );
+    this.inputs.forEach((element) => {
+      element.addEventListener("input", () => this.matrix.onFilterChanged());
+    });
   }
 }
 
