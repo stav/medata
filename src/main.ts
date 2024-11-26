@@ -1,13 +1,15 @@
 import {createGrid, type GridOptions, ModuleRegistry} from "@ag-grid-community/core";
+
 import {ClientSideRowModelModule} from "@ag-grid-community/client-side-row-model";
 import {StatusBarModule} from "@ag-grid-enterprise/status-bar";
-
 ModuleRegistry.registerModules([ClientSideRowModelModule, StatusBarModule]);
-
-import './style.css'
 
 import {LicenseManager} from "@ag-grid-enterprise/core";
 LicenseManager.setLicenseKey("<your license key>")
+
+import './style.css'
+
+import plans from '../data/plans.json'
 
 class SimpleGrid {
     private readonly gridOptions: GridOptions = <GridOptions>{};
@@ -15,15 +17,11 @@ class SimpleGrid {
     constructor() {
         this.gridOptions = {
             columnDefs: [
-                {field: "make"},
-                {field: "model"},
-                {field: "price"}
+                {field: "Year"},
+                {field: "Carrier"},
+                {field: "Name"}
             ],
-            rowData: [
-                {make: "Toyota", model: "Celica", price: 35000},
-                {make: "Ford", model: "Mondeo", price: 32000},
-                {make: "Porsche", model: "Boxster", price: 72000}
-            ],
+            rowData: plans,
             defaultColDef: {
                 flex: 1,
             },
