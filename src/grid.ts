@@ -26,6 +26,13 @@ class SimpleGrid {
         { field: "ID" },
         { field: "Premium" },
         { field: "Giveback" },
+        { field: "Spc copay" },
+        { field: "MOOP" },
+        { field: "OTC" },
+        { field: "Card" },
+        { field: "Dental" },
+        { field: "Vision" },
+        { field: "Hospital /day" },
       ],
       rowSelection: {
         mode: "multiRow",
