@@ -13,21 +13,20 @@ class SimpleGrid {
     this.gridOptions = {
       rowData: plans,
       columnDefs: [
-        { field: "Year" },
         {
-          field: "Carrier",
+          field: "Year", // overrides valueFormatter unless comparator
+          // headerName: "Yearly",
+          // valueFormatter: (p: ValueGetterParams) => `${p.value}`,
+          // valueGetter: (p: ValueGetterParams) => `${p.getValue("Year")}`,
           filter: "agSetColumnFilter",
+          cellDataType: "text",
+          // cellRendererParams: { disabled: true },
           filterParams: {
-            applyMiniFilterWhileTyping: true,
+            // valueFormatter,
           } as ISetFilterParams,
         },
-        {
-          field: "Name",
-          filter: "agSetColumnFilter",
-          filterParams: {
-            applyMiniFilterWhileTyping: true,
-          } as ISetFilterParams,
-        },
+        { field: "Carrier", filter: true },
+        { field: "Name", filter: true },
         { field: "Type" },
         { field: "ID" },
         { field: "Premium" },
