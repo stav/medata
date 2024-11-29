@@ -2,6 +2,7 @@ import {
   createGrid,
   type GridOptions,
   type ISetFilterParams,
+  type ValueFormatterParams,
 } from "@ag-grid-community/core";
 
 import plans from "../data/plans.json";
@@ -27,18 +28,26 @@ class SimpleGrid {
         },
         { field: "Carrier", filter: true },
         { field: "Name", filter: true },
-        { field: "Type" },
-        { field: "ID" },
-        { field: "Premium" },
-        { field: "Giveback" },
-        { field: "Spc copay" },
-        { field: "MOOP" },
-        { field: "OTC" },
-        { field: "Card", cellDataType: "number" },
-        { field: "Dental" },
-        { field: "Vision" },
-        { field: "Hospital /day" },
+        { field: "Type", filter: true },
+        { field: "ID", filter: true },
+        { field: "Premium", type: ["currency", "rightAligned"] },
+        { field: "Giveback", type: ["currency", "rightAligned"] },
+        { field: "Spc copay", type: ["currency", "rightAligned"] },
+        { field: "Ambulance", type: ["currency", "rightAligned"] },
+        { field: "MOOP", type: ["currency", "rightAligned"] },
+        { field: "OTC", type: ["currency", "rightAligned"] },
+        { field: "Card", type: ["currency", "rightAligned"] },
+        { field: "Dental", type: ["currency", "rightAligned"] },
+        { field: "Vision", type: ["currency", "rightAligned"] },
+        { field: "Hospital /day", type: ["currency", "rightAligned"] },
+        { field: "Hospital days", type: ["rightAligned"] },
       ],
+      columnTypes: {
+        currency: {
+          width: 150,
+          valueFormatter: this.currencyFormatter,
+        },
+      },
       defaultColDef: {
         flex: 1,
       },
@@ -58,6 +67,13 @@ class SimpleGrid {
 
     const eGridDiv: HTMLElement = <HTMLElement>document.querySelector("#app");
     createGrid(eGridDiv, this.gridOptions);
+  }
+  currencyFormatter(params: ValueFormatterParams) {
+    const value = Math.floor(params.value);
+    if (isNaN(value)) {
+      return "";
+    }
+    return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
 }
 
