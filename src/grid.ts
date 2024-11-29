@@ -4,6 +4,7 @@ import {
   type FilterChangedEvent,
   type GridOptions,
   type ISetFilterParams,
+  type RowClickedEvent,
   type ValueFormatterParams,
 } from "@ag-grid-community/core";
 
@@ -42,12 +43,14 @@ class SimpleGrid {
         { field: "Dental", type: ["currency", "rightAligned"] },
         { field: "Vision", type: ["currency", "rightAligned"] },
         { field: "Hospital /day", type: ["currency", "rightAligned"] },
-        { field: "Hospital days", type: ["rightAligned"] },
+        { field: "Hospital days", type: ["total", "rightAligned"] },
       ],
       columnTypes: {
         currency: {
-          width: 150,
-          valueFormatter: this.currencyFormatter,
+          valueFormatter: this.numberFormatter,
+        },
+        total: {
+          valueFormatter: this.numberFormatter,
         },
       },
       defaultColDef: {
@@ -56,6 +59,36 @@ class SimpleGrid {
       rowSelection: {
         mode: "multiRow",
         enableClickSelection: true,
+      },
+      onRowClicked(event: RowClickedEvent) {
+        const rows = event.api.getSelectedRows(); // Selected rows
+        // Compare two rows together
+        if (rows.length < 3) {
+          let total = 0 // Sum of the money from each column
+          const defs: ColDef[] = event.api.getColumnDefs() ?? [];
+          // Spin thru the columns
+          defs.forEach((def) => {
+            // Display difference in header if 2 rows selected
+            if (rows.length === 2) {
+              // Only look at the money
+              if (def.type?.includes('currency') && def.field) {
+                const oldplan = rows[0][def.field];
+                const newplan = rows[1][def.field];
+                const diff = newplan - oldplan;
+                def.headerName = diff.toString();
+                total += diff;
+              }
+              else if (def.type?.includes('total')) {
+                def.headerName = total.toString();
+              }
+            }
+            // Otherwise clear the headers if only 1 row
+            else {
+              def.headerName = undefined;
+            }
+          });
+          event.api.setGridOption("columnDefs", defs);
+        }
       },
       onFilterChanged: (event: FilterChangedEvent) => {
         const col = event.columns[0];
@@ -94,7 +127,7 @@ class SimpleGrid {
     const eGridDiv: HTMLElement = <HTMLElement>document.querySelector("#app");
     createGrid(eGridDiv, this.gridOptions);
   }
-  currencyFormatter(params: ValueFormatterParams) {
+  numberFormatter(params: ValueFormatterParams) {
     const value = Math.floor(params.value);
     if (isNaN(value)) {
       return "";
