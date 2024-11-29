@@ -1,5 +1,7 @@
 import {
   createGrid,
+  type ColDef,
+  type FilterChangedEvent,
   type GridOptions,
   type ISetFilterParams,
   type ValueFormatterParams,
@@ -54,6 +56,20 @@ class SimpleGrid {
       rowSelection: {
         mode: "multiRow",
         enableClickSelection: true,
+      },
+      onFilterChanged: (event: FilterChangedEvent) => {
+        const col = event.columns[0];
+        const model = event.api.getColumnFilterModel(col) as {
+          filter: string;
+        } | null;
+        const defs: ColDef[] = event.api.getColumnDefs() ?? [];
+        defs.forEach((def) => {
+          if (def.colId === col.getColId()) {
+            def.headerName = model?.filter;
+          }
+        });
+        event.api.setGridOption("columnDefs", defs);
+        // event.api.refreshHeader();
       },
       statusBar: {
         statusPanels: [
