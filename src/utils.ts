@@ -13,9 +13,6 @@ function currencyFormatter(value: any) {
 
 function numberValueFormatter(params: ValueFormatterParams) {
   const value = Math.floor(params.value);
-  if (isNaN(value)) {
-    return "";
-  }
   return numberFormat.format(value);
 }
 
