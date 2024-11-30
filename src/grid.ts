@@ -5,8 +5,9 @@ import {
   type GridOptions,
   type ISetFilterParams,
   type RowClickedEvent,
-  type ValueFormatterParams,
 } from "@ag-grid-community/core";
+
+import { currencyFormatter, numberValueFormatter } from "./utils";
 
 import plans from "../data/plans.json";
 
@@ -33,24 +34,24 @@ class SimpleGrid {
         { field: "Name", filter: true },
         { field: "Type", filter: true },
         { field: "ID", filter: true },
-        { field: "Premium", type: ["currency", "rightAligned"] },
-        { field: "Giveback", type: ["currency", "rightAligned"] },
-        { field: "Spc copay", type: ["currency", "rightAligned"] },
-        { field: "Ambulance", type: ["currency", "rightAligned"] },
-        { field: "MOOP", type: ["currency", "rightAligned"] },
-        { field: "OTC", type: ["currency", "rightAligned"] },
-        { field: "Card", type: ["currency", "rightAligned"] },
-        { field: "Dental", type: ["currency", "rightAligned"] },
-        { field: "Vision", type: ["currency", "rightAligned"] },
-        { field: "Hospital /day", type: ["currency", "rightAligned"] },
+        { field: "Premium", type: ["numerical", "rightAligned"] },
+        { field: "Giveback", type: ["numerical", "rightAligned"] },
+        { field: "Spc copay", type: ["numerical", "rightAligned"] },
+        { field: "Ambulance", type: ["numerical", "rightAligned"] },
+        { field: "MOOP", type: ["numerical", "rightAligned"] },
+        { field: "OTC", type: ["numerical", "rightAligned"] },
+        { field: "Card", type: ["numerical", "rightAligned"] },
+        { field: "Dental", type: ["numerical", "rightAligned"] },
+        { field: "Vision", type: ["numerical", "rightAligned"] },
+        { field: "Hospital /day", type: ["numerical", "rightAligned"] },
         { field: "Hospital days", type: ["total", "rightAligned"] },
       ],
       columnTypes: {
-        currency: {
-          valueFormatter: this.numberFormatter,
+        numerical: {
+          valueFormatter: numberValueFormatter,
         },
         total: {
-          valueFormatter: this.numberFormatter,
+          valueFormatter: numberValueFormatter,
         },
       },
       defaultColDef: {
@@ -72,7 +73,7 @@ class SimpleGrid {
             // Display difference in header if 2 rows selected
             if (rows.length === 2) {
               // Only look at the money
-              if (def.type?.includes("currency") && def.field) {
+              if (def.type?.includes("numerical") && def.field) {
                 const oldplan = rows[0][def.field];
                 const newplan = rows[1][def.field];
                 const diff = newplan - oldplan;
@@ -81,6 +82,7 @@ class SimpleGrid {
               } else if (def.type?.includes("total")) {
                 def.headerName = total.toString();
               }
+              def.headerName = currencyFormatter(def.headerName)
             }
             // Otherwise clear the headers if only 1 row
             else {
@@ -126,13 +128,6 @@ class SimpleGrid {
 
     const eGridDiv: HTMLElement = <HTMLElement>document.querySelector("#app");
     createGrid(eGridDiv, this.gridOptions);
-  }
-  numberFormatter(params: ValueFormatterParams) {
-    const value = Math.floor(params.value);
-    if (isNaN(value)) {
-      return "";
-    }
-    return value.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
   }
 }
 
