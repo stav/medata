@@ -1,8 +1,10 @@
-Year,Carrier,Name,Type,ID,Description,Premium,Giveback,Med Deduct,Drug Deduct Tier345,PCP copay,Spc copay,Ambulance,ER,Urgent,MOOP,OTC,Card,Dental,Vision,Hearing,Hospital /day,Hospital days,Hospital Stays
+Year,Carrier,Name,Type,ID,Description,Premium,Giveback,Med Deduct,Drug Deduct Tier345,PCP copay,Spc copay,Ambulance,ER,Urgent,MOOP,OTC,Card,Dental,Vision,Hearing,Hospital /day,Hospital days,Hospital Stays 
 2024,Anthem,MA 2,HMO-POS,H3655-042-000,2024 Anthem MA 2,-300,0,0,0,0,-35,-260,-90,-30,-3400,360,600,2000,225,,-350,5,-1750
-2025,Anthem,MA,HMO-POS,H3655-045-004,2025 Anthem MA,0,0,0,0,0,-30,,-140,-30,-4150,428,600,2000,300,,-310,7,-2170
-2025,Anthem,Full Dual Adv. 2,HMO-POS D-SNP,H3655-049-000,2025 Anthem Full Dual Adv. 2,0,0,,,,,,,,-9350,0,2820,4500,400,,,,0
+2024,Anthem,MA,HMO,H3655-045-004,2024,0,0,0,0,0,-35,-260,-90,-30,-4200,300,600,2000,300,,-300,5,-1500
+2025,Anthem,MA,HMO-POS,H3655-045-004,2025 Anthem MA,0,0,0,0,0,-30,-260,-140,-30,-4150,428,600,2000,300,,-310,7,-2170
+2025,Anthem,Dual Adv.,HMO D-SNP,H3655-048-000,2025 Anthem Dual Adv.,-19.3,0,0,0,0,-25,-260,-140,-20,-4150,,,2500,300,300,-295,7,-2065
 2025,Anthem,Full Dual Adv.,HMO-POS D-SNP,H3655-033-000,2025 Anthem Full Dual Adv.,0,0,,,,,,,,-9350,2100,500,4000,400,,,,0
+2025,Anthem,Full Dual Adv. 2,HMO-POS D-SNP,H3655-049-000,2025 Anthem Full Dual Adv. 2,0,0,,,,,,,,-9350,0,2820,4500,400,,,,0
 2025,Anthem,Chronic Care,HMO-POS C-SNP,H3655-047-000,2025 Anthem Chronic Care,0,0,,,,,,,,-3900,280,500,2500,300,,-310,7,-2170
 2025,Anthem,Veteran,PPO,H4036-022-000,2025 Anthem Veteran,0,1800,,,,,,,,-5900,600,500,2000,225,,-350,5,-1750
 2025,Humana,Gold Plus,HMO-POS,H6622-022-000,2025 Humana Gold Plus,0,2,0,0,0,-35,-315,-120,-55,-4700,500,0,4000,150,0,-395,5,-1975
@@ -11,7 +13,7 @@ Year,Carrier,Name,Type,ID,Description,Premium,Giveback,Med Deduct,Drug Deduct Ti
 2025,Humana,Choice Giveback,PPO,H5216-309-000,2025 Humana Choice Giveback,0,1488,-425,-510,0,-40,-315,-100,-45,-9350,,,,,,-400,5,-2375
 2025,Humana,"USAA Honor Giveback (MA only, no drugs)",PPO,H5216-218-000,"2025 Humana USAA Honor Giveback (MA only, no drugs)",0,1200,0,-350,-15,-45,,,,-9350,600,0,2000,200,,-425,5,-2125
 2025,Humana,USAA Honor Giveback with Rx,PPO,H5216-307-000,2025 Humana USAA Honor Giveback with Rx,0,912,0,-350,0,-45,,,,-8850,200,0,3000,150,,-425,5,-2125
-2025,Devoted,Giveback ,HMO,H2697-003-000,2025 Devoted Giveback ,0,2096.4,,,,,,,,-6750,0,0,150,150,,-450,5,-2250
+2025,Devoted,Giveback ,HMO,H2697-003-000,2025 Devoted Giveback ,0,2096.4,0,-590,0,-45,-350,-125,-55,-6750,0,0,150,150,0,-450,5,-2250
 2025,Devoted,Core,HMO,H2697-001-000,2025 Devoted Core,0,0,,,,,,,,-4900,0,0,500,500,,-325,6,-1950
 2025,Devoted,Choice ,PPO,H2526-001-000,2025 Devoted Choice ,0,0,,,,,,,,-5300,0,0,500,500,,-380,5,-1900
 2025,Devoted,Choice Extra,PPO,H2526-003-000,2025 Devoted Choice Extra,0,0,0,-590,0,-45,-290,-125,-45,-5300,0,984,500,500,,-395,5,-1975
