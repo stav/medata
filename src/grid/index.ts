@@ -13,10 +13,10 @@ ModuleRegistry.registerModules([
   RangeSelectionModule,
 ]);
 
-// Create the Grid
+// Export the Grid Class
 
 import { createGrid } from "@ag-grid-community/core";
-import { gridOptions } from "./options";
+import gridOptions from "./options";
 import "./style.css";
 
 export default class SimpleGrid {
