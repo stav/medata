@@ -1,2 +1,15 @@
 @import '@ag-grid-community/styles/ag-grid.css';
 @import '@ag-grid-community/styles/ag-theme-quartz.css';
+
+.rag-good {
+    background-color: rgba(39, 121, 39, 0.4);
+}
+.rag-fine {
+    background-color: rgba(20, 20, 110, 0.4);
+}
+.rag-warn {
+    background-color: rgba(113, 24, 24, 0.4);
+}
+.rag-over {
+    background-color: rgb(125, 125, 8);
+}
