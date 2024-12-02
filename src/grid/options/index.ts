@@ -3,6 +3,7 @@ import type { GridOptions } from "@ag-grid-community/core";
 import statusBar from "./status-bar";
 import columnDefs from "./column-defs";
 import columnTypes from "./column-types";
+import onGridReady from "./on-grid-ready";
 import onRowClicked from "./on-row-clicked";
 import onFilterChanged from "./on-filter-changed";
 
@@ -20,4 +21,5 @@ export default <GridOptions>{
   tooltipHideDelay: 2000,
   onRowClicked,
   onFilterChanged,
+  onGridReady,
 };
