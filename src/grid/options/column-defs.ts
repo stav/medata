@@ -19,6 +19,7 @@ export default <ColDef[]>[
   { field: "ID", filter: true },
   {
     field: "Premium",
+    headerTooltip: "Premium",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-warn": "x <= -100",
@@ -28,6 +29,7 @@ export default <ColDef[]>[
   },
   {
     field: "Giveback",
+    headerTooltip: "Giveback",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-good": "x > 1000",
@@ -37,6 +39,7 @@ export default <ColDef[]>[
   },
   {
     field: "Spc copay",
+    headerTooltip: "Spc copay",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-good": "x === 0",
@@ -45,6 +48,7 @@ export default <ColDef[]>[
   },
   {
     field: "Ambulance",
+    headerTooltip: "Ambulance",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-warn": "x <= -300",
@@ -55,6 +59,7 @@ export default <ColDef[]>[
   },
   {
     field: "ER",
+    headerTooltip: "ER",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-warn": "x < -125",
@@ -65,6 +70,7 @@ export default <ColDef[]>[
   },
   {
     field: "Urgent",
+    headerTooltip: "Urgent",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-warn": "x <= -50",
@@ -75,6 +81,7 @@ export default <ColDef[]>[
   },
   {
     field: "MOOP",
+    headerTooltip: "MOOP",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-warn": "x <= -8000",
@@ -86,6 +93,7 @@ export default <ColDef[]>[
   },
   {
     field: "OTC",
+    headerTooltip: "OTC",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-good": "x > 1000",
@@ -95,6 +103,7 @@ export default <ColDef[]>[
   },
   {
     field: "Card",
+    headerTooltip: "Card",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-good": "x > 1000",
@@ -104,6 +113,7 @@ export default <ColDef[]>[
   },
   {
     field: "Dental",
+    headerTooltip: "Dental",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-good": "x >= 4000",
@@ -113,6 +123,7 @@ export default <ColDef[]>[
   },
   {
     field: "Vision",
+    headerTooltip: "Vision",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-good": "x >= 400",
@@ -121,6 +132,7 @@ export default <ColDef[]>[
   },
   {
     field: "Hospital /day",
+    headerTooltip: "Hospital /day",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-warn": "x < -350",
@@ -131,6 +143,7 @@ export default <ColDef[]>[
   },
   {
     field: "Hospital days",
+    headerTooltip: "Days / Total",
     type: ["total", "rightAligned"],
     cellClassRules: {
       "rag-good": "x < 6 && x > 0",

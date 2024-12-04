@@ -14,8 +14,10 @@ export default <GridOptions>{
   columnTypes,
   defaultColDef: { flex: 1 },
   cellSelection: true,
-  rowSelection: { mode: "multiRow", enableClickSelection: true, },
+  rowSelection: { mode: "multiRow", enableClickSelection: true },
   statusBar,
+  tooltipShowDelay: 500,
+  tooltipHideDelay: 2000,
   onRowClicked,
   onFilterChanged,
 };
