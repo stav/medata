@@ -10,7 +10,7 @@ export default function (event: RowClickedEvent) {
     const defs: ColDef[] = event.api.getColumnDefs() ?? [];
     // Spin thru the columns
     defs.forEach((def) => {
-      let header = undefined as unknown as string
+      let header: string | undefined = undefined;
       // Display difference in header if 2 rows selected
       if (rows.length === 2) {
         // Only look at the money
@@ -26,7 +26,11 @@ export default function (event: RowClickedEvent) {
           header = currencyFormatter(total);
         }
       }
-      def.headerName = header
+      // Check for the score column which has no field
+      if (def.type?.includes("score")) {
+        header = def.headerName;
+      }
+      def.headerName = header;
     });
     event.api.setGridOption("columnDefs", defs);
   }

@@ -1,5 +1,28 @@
 import type { ISetFilterParams, ColDef } from "@ag-grid-community/core";
 
+function evaluatePremium(value: any) {
+  if (value <= -100) return "Warning";
+  if (value > -100 && value <= -10) return "Fine";
+  if (value > 0) return "Over";
+  return "Unknown";
+}
+
+function evaluateScores(data: any) {
+  console.log("data", data);
+  const premium = data["Premium"];
+  let score = 0;
+  switch (evaluatePremium(premium)) {
+    case "Warning":
+      score -= 2;
+      break;
+
+    case "Fine":
+      score += 1;
+      break;
+  }
+  return score;
+}
+
 export default <ColDef[]>[
   {
     field: "Year", // overrides valueFormatter unless comparator
@@ -22,9 +45,9 @@ export default <ColDef[]>[
     headerTooltip: "Premium",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": "x <= -100",
-      "rag-fine": "x > -100 && x <= -10",
-      "rag-over": "x > 0",
+      "rag-warn": (params) => evaluatePremium(params.value) === "Warning",
+      "rag-fine": (params) => evaluatePremium(params.value) === "Fine",
+      "rag-over": (params) => evaluatePremium(params.value) === "Over",
     },
   },
   {
@@ -150,5 +173,11 @@ export default <ColDef[]>[
       "rag-fine": "x === 6",
       "rag-warn": "x > 6",
     },
+  },
+  {
+    headerName: "Score",
+    // headerTooltip: "Score",
+    type: ["score", "rightAligned"],
+    valueGetter: (params) => evaluateScores(params.data),
   },
 ];

@@ -7,4 +7,6 @@ export default {
   total: {
     valueFormatter: numberValueFormatter,
   },
+  score: {
+  },
 }
