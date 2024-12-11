@@ -58,14 +58,14 @@ function evaluateFine(params: CellClassParams) {
     case "Giveback"      : return value > 100 && value <= 1000;
     case "Ambulance"     : return value > -300 && value < -200;
     case "ER"            : return value >= -125 && value < -100;
-    case "Urgent"        : return false;
-    case "MOOP"          : return false;
-    case "OTC"           : return false;
-    case "Card"          : return false;
-    case "Dental"        : return false;
-    case "Vision"        : return false;
-    case "Hospital /day" : return false;
-    case "Hospital days" : return false;
+    case "Urgent"        : return value > -50 && value <= -30;
+    case "MOOP"          : return value > -8000 && value <= -4000;
+    case "OTC"           : return value >= 400 && value <= 1000;
+    case "Card"          : return value >= 400 && value <= 1000;
+    case "Dental"        : return value >= 2000 && value < 4000;
+    case "Vision"        : return value >= 250 && value < 400;
+    case "Hospital /day" : return value >= -350 && value < -325;
+    case "Hospital days" : return value === 6;
     default:
       break;
   }
@@ -115,8 +115,8 @@ export default <ColDef[]>[
     headerTooltip: "Premium",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": evaluateWarn,
       "rag-fine": evaluateFine,
+      "rag-warn": evaluateWarn,
       "rag-over": evaluateOver,
     },
   },
@@ -144,9 +144,9 @@ export default <ColDef[]>[
     headerTooltip: "Ambulance",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": evaluateWarn,
-      "rag-fine": evaluateFine,
       "rag-good": evaluateGood,
+      "rag-fine": evaluateFine,
+      "rag-warn": evaluateWarn,
       "rag-over": evaluateOver,
     },
   },
@@ -155,9 +155,9 @@ export default <ColDef[]>[
     headerTooltip: "ER",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": evaluateWarn,
-      "rag-fine": evaluateFine,
       "rag-good": evaluateGood,
+      "rag-fine": evaluateFine,
+      "rag-warn": evaluateWarn,
       "rag-over": evaluateOver,
     },
   },
@@ -166,9 +166,9 @@ export default <ColDef[]>[
     headerTooltip: "Urgent",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": evaluateWarn,
-      "rag-fine": "x > -50 && x <= -30",
       "rag-good": "x >= -30 && x < 0",
+      "rag-fine": evaluateFine,
+      "rag-warn": evaluateWarn,
       "rag-over": evaluateOver,
     },
   },
@@ -177,10 +177,9 @@ export default <ColDef[]>[
     headerTooltip: "MOOP",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": evaluateWarn,
-      "rag-fine": "x > -8000 && x <= -4000",
       "rag-good": "x > -4000 && x < 0",
-      "rag-zero": "x === 0",
+      "rag-fine": evaluateFine,
+      "rag-warn": evaluateWarn,
       "rag-over": evaluateOver,
     },
   },
@@ -190,7 +189,7 @@ export default <ColDef[]>[
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-good": "x > 1000",
-      "rag-fine": "x >= 400 && x <= 1000",
+      "rag-fine": evaluateFine,
       "rag-over": evaluateOver,
     },
   },
@@ -200,7 +199,7 @@ export default <ColDef[]>[
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-good": "x > 1000",
-      "rag-fine": "x >= 400 && x <= 1000",
+      "rag-fine": evaluateFine,
       "rag-over": evaluateOver,
     },
   },
@@ -210,7 +209,7 @@ export default <ColDef[]>[
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-good": "x >= 4000",
-      "rag-fine": "x >= 2000 && x < 4000",
+      "rag-fine": evaluateFine,
       "rag-over": evaluateOver,
     },
   },
@@ -220,7 +219,7 @@ export default <ColDef[]>[
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-good": "x >= 400",
-      "rag-fine": "x >= 250 && x < 400",
+      "rag-fine": evaluateFine,
       "rag-over": evaluateOver,
     },
   },
@@ -230,7 +229,7 @@ export default <ColDef[]>[
     type: ["numerical", "rightAligned"],
     cellClassRules: {
       "rag-warn": evaluateWarn,
-      "rag-fine": "x >= -350 && x < -325",
+      "rag-fine": evaluateFine,
       "rag-good": "x >= -325 && x < 0",
       "rag-over": evaluateOver,
     },
@@ -241,7 +240,7 @@ export default <ColDef[]>[
     type: ["total", "rightAligned"],
     cellClassRules: {
       "rag-good": "x < 6 && x > 0",
-      "rag-fine": "x === 6",
+      "rag-fine": evaluateFine,
       "rag-warn": evaluateWarn,
       "rag-over": evaluateOver,
     },
@@ -252,9 +251,9 @@ export default <ColDef[]>[
     type: ["score", "rightAligned"],
     valueGetter: (params) => evaluateScores(params),
     cellClassRules: {
-      "rag-good": "x > 0",
-      "rag-fine": "x === 0",
       "rag-warn": "x < 0",
+      "rag-fine": "x >= 0 && x <= 2",
+      "rag-good": "x > 2",
     },
   },
 ];
