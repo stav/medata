@@ -10,9 +10,19 @@ function evaluateOver(params: CellClassParams) {
   const value = params.value;
   console.log("evaluateOver", field, value);
   switch (field) {
-    case "Premium": return value > 0;
-    case "Giveback": return value < 0;
-    case "Ambulance": return value > 0;
+    case "Premium"       : return value > 0;
+    case "Spc copay"     : return value > 0;
+    case "Giveback"      : return value < 0;
+    case "Ambulance"     : return value > 0;
+    case "ER"            : return value > 0;
+    case "Urgent"        : return value > 0;
+    case "MOOP"          : return value > 0;
+    case "OTC"           : return value < 0;
+    case "Card"          : return value < 0;
+    case "Dental"        : return value < 0;
+    case "Vision"        : return value < 0;
+    case "Hospital /day" : return value > 0;
+    case "Hospital days" : return value > 7;
     default:
       break;
   }
@@ -23,9 +33,19 @@ function evaluateWarn(params: CellClassParams) {
   const value = params.value;
   console.log("evaluateWarn", params, field, value);
   switch (field) {
-    case "Premium": return value <= -100;
-    case "Spc copay": return value < -35;
-    case "Ambulance": return value <= -300;
+    case "Premium"       : return value <= -100;
+    case "Spc copay"     : return value < -35;
+    case "Giveback"      : return false;
+    case "Ambulance"     : return value <= -300;
+    case "ER"            : return value < -125;
+    case "Urgent"        : return false;
+    case "MOOP"          : return false;
+    case "OTC"           : return false;
+    case "Card"          : return false;
+    case "Dental"        : return false;
+    case "Vision"        : return false;
+    case "Hospital /day" : return false;
+    case "Hospital days" : return false;
     default:
       break;
   }
@@ -36,9 +56,19 @@ function evaluateFine(params: CellClassParams) {
   const value = params.value;
   console.log("evaluateFine", field, value);
   switch (field) {
-    case "Premium": return value <= -10 && value > -100;
-    case "Giveback": return value > 100 && value <= 1000;
-    case "Ambulance": return value > -300 && value < -200;
+    case "Premium"       : return value <= -10 && value > -100;
+    case "Spc copay"     : return false;
+    case "Giveback"      : return value > 100 && value <= 1000;
+    case "Ambulance"     : return value > -300 && value < -200;
+    case "ER"            : return value >= -125 && value < -100;
+    case "Urgent"        : return false;
+    case "MOOP"          : return false;
+    case "OTC"           : return false;
+    case "Card"          : return false;
+    case "Dental"        : return false;
+    case "Vision"        : return false;
+    case "Hospital /day" : return false;
+    case "Hospital days" : return false;
     default:
       break;
   }
@@ -49,9 +79,19 @@ function evaluateGood(params: CellClassParams) {
   const value = params.value;
   console.log("evaluateGood", field, value);
   switch (field) {
-    case "Giveback": return value > 1000;
-    case "Spc copay": return value === 0;
-    case "Ambulance": return value >= -200 && value < 0;
+    case "Premium"       : return false;
+    case "Spc copay"     : return value === 0;
+    case "Giveback"      : return value > 1000;
+    case "Ambulance"     : return value >= -200 && value < 0;
+    case "ER"            : return value >= -100 && value < 0;
+    case "Urgent"        : return false;
+    case "MOOP"          : return false;
+    case "OTC"           : return false;
+    case "Card"          : return false;
+    case "Dental"        : return false;
+    case "Vision"        : return false;
+    case "Hospital /day" : return false;
+    case "Hospital days" : return false;
     default:
       break;
   }
@@ -119,10 +159,10 @@ export default <ColDef[]>[
     headerTooltip: "ER",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": "x < -125",
-      "rag-fine": "x >= -125 && x < -100",
-      "rag-good": "x >= -100 && x < 0",
-      "rag-over": "x > 0",
+      "rag-warn": evaluateWarn,
+      "rag-fine": evaluateFine,
+      "rag-good": evaluateGood,
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -133,7 +173,7 @@ export default <ColDef[]>[
       "rag-warn": "x <= -50",
       "rag-fine": "x > -50 && x <= -30",
       "rag-good": "x >= -30 && x < 0",
-      "rag-over": "x > 0",
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -145,7 +185,7 @@ export default <ColDef[]>[
       "rag-fine": "x > -8000 && x <= -4000",
       "rag-good": "x > -4000 && x < 0",
       "rag-zero": "x === 0",
-      "rag-over": "x > 0",
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -155,7 +195,7 @@ export default <ColDef[]>[
     cellClassRules: {
       "rag-good": "x > 1000",
       "rag-fine": "x >= 400 && x <= 1000",
-      "rag-over": "x < 0",
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -165,7 +205,7 @@ export default <ColDef[]>[
     cellClassRules: {
       "rag-good": "x > 1000",
       "rag-fine": "x >= 400 && x <= 1000",
-      "rag-over": "x < 0",
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -175,7 +215,7 @@ export default <ColDef[]>[
     cellClassRules: {
       "rag-good": "x >= 4000",
       "rag-fine": "x >= 2000 && x < 4000",
-      "rag-over": "x < 0",
+      "rag-over": evaluateOver,
     },
   },
   {
