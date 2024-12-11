@@ -1,26 +1,60 @@
-import type { ISetFilterParams, ColDef } from "@ag-grid-community/core";
+import type {
+  ISetFilterParams,
+  ColDef,
+  CellClassParams,
+  ValueGetterParams,
+} from "@ag-grid-community/core";
 
-function evaluatePremium(value: any) {
-  if (value <= -100) return "Warning";
-  if (value > -100 && value <= -10) return "Fine";
-  if (value > 0) return "Over";
-  return "Unknown";
-}
-
-function evaluateScores(data: any) {
-  console.log("data", data);
-  const premium = data["Premium"];
-  let score = 0;
-  switch (evaluatePremium(premium)) {
-    case "Warning":
-      score -= 2;
-      break;
-
-    case "Fine":
-      score += 1;
+function evaluateOver(params: CellClassParams) {
+  const field = params.colDef.field;
+  const value = params.value;
+  console.log("evaluateOver", field, value);
+  switch (field) {
+    case "Premium": return value > 0;
+    case "Giveback": return value < 0;
+    case "Ambulance": return value > 0;
+    default:
       break;
   }
-  return score;
+}
+
+function evaluateWarn(params: CellClassParams) {
+  const field = params.colDef.field;
+  const value = params.value;
+  console.log("evaluateWarn", params, field, value);
+  switch (field) {
+    case "Premium": return value <= -100;
+    case "Spc copay": return value < -35;
+    case "Ambulance": return value <= -300;
+    default:
+      break;
+  }
+}
+
+function evaluateFine(params: CellClassParams) {
+  const field = params.colDef.field;
+  const value = params.value;
+  console.log("evaluateFine", field, value);
+  switch (field) {
+    case "Premium": return value <= -10 && value > -100;
+    case "Giveback": return value > 100 && value <= 1000;
+    case "Ambulance": return value > -300 && value < -200;
+    default:
+      break;
+  }
+}
+
+function evaluateGood(params: CellClassParams) {
+  const field = params.colDef.field;
+  const value = params.value;
+  console.log("evaluateGood", field, value);
+  switch (field) {
+    case "Giveback": return value > 1000;
+    case "Spc copay": return value === 0;
+    case "Ambulance": return value >= -200 && value < 0;
+    default:
+      break;
+  }
 }
 
 export default <ColDef[]>[
@@ -45,9 +79,9 @@ export default <ColDef[]>[
     headerTooltip: "Premium",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": (params) => evaluatePremium(params.value) === "Warning",
-      "rag-fine": (params) => evaluatePremium(params.value) === "Fine",
-      "rag-over": (params) => evaluatePremium(params.value) === "Over",
+      "rag-warn": evaluateWarn,
+      "rag-fine": evaluateFine,
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -55,9 +89,9 @@ export default <ColDef[]>[
     headerTooltip: "Giveback",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-good": "x > 1000",
-      "rag-fine": "x > 100 && x <= 1000",
-      "rag-over": "x < 0",
+      "rag-good": evaluateGood,
+      "rag-fine": evaluateFine,
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -65,8 +99,8 @@ export default <ColDef[]>[
     headerTooltip: "Spc copay",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-good": "x === 0",
-      "rag-warn": "x < -35",
+      "rag-good": evaluateGood,
+      "rag-warn": evaluateWarn,
     },
   },
   {
@@ -74,10 +108,10 @@ export default <ColDef[]>[
     headerTooltip: "Ambulance",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": "x <= -300",
-      "rag-fine": "x > -300 && x < -200",
-      "rag-good": "x >= -200 && x < 0",
-      "rag-over": "x > 0",
+      "rag-warn": evaluateWarn,
+      "rag-fine": evaluateFine,
+      "rag-good": evaluateGood,
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -178,6 +212,24 @@ export default <ColDef[]>[
     headerName: "Score",
     // headerTooltip: "Score",
     type: ["score", "rightAligned"],
-    valueGetter: (params) => evaluateScores(params.data),
+    valueGetter: (params) => evaluateScores(params),
+    cellClassRules: {
+      "rag-good": "x > 0",
+      "rag-fine": "x === 0",
+      "rag-warn": "x < 0",
+    },
   },
 ];
+
+function evaluateScores(params: ValueGetterParams) {
+  console.log("evaluateScores", params);
+  let score = 0;
+  for (const [key, value] of Object.entries(params.data)) {
+    console.log('scores element', key, value)
+    const params = { colDef: {field: key}, value } as CellClassParams
+    if (evaluateWarn(params)) score -= 2;
+    if (evaluateFine(params)) score += 1;
+    if (evaluateGood(params)) score += 2;
+  }
+  return score;
+}
