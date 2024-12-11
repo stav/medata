@@ -8,7 +8,6 @@ import type {
 function evaluateOver(params: CellClassParams) {
   const field = params.colDef.field;
   const value = params.value;
-  console.log("evaluateOver", field, value);
   switch (field) {
     case "Premium"       : return value > 0;
     case "Spc copay"     : return value > 0;
@@ -31,21 +30,20 @@ function evaluateOver(params: CellClassParams) {
 function evaluateWarn(params: CellClassParams) {
   const field = params.colDef.field;
   const value = params.value;
-  console.log("evaluateWarn", params, field, value);
   switch (field) {
     case "Premium"       : return value <= -100;
     case "Spc copay"     : return value < -35;
     case "Giveback"      : return false;
     case "Ambulance"     : return value <= -300;
     case "ER"            : return value < -125;
-    case "Urgent"        : return false;
-    case "MOOP"          : return false;
+    case "Urgent"        : return value <= -50;
+    case "MOOP"          : return value <= -8000;
     case "OTC"           : return false;
     case "Card"          : return false;
     case "Dental"        : return false;
     case "Vision"        : return false;
-    case "Hospital /day" : return false;
-    case "Hospital days" : return false;
+    case "Hospital /day" : return value < -350;
+    case "Hospital days" : return value > 6;
     default:
       break;
   }
@@ -54,7 +52,6 @@ function evaluateWarn(params: CellClassParams) {
 function evaluateFine(params: CellClassParams) {
   const field = params.colDef.field;
   const value = params.value;
-  console.log("evaluateFine", field, value);
   switch (field) {
     case "Premium"       : return value <= -10 && value > -100;
     case "Spc copay"     : return false;
@@ -77,7 +74,6 @@ function evaluateFine(params: CellClassParams) {
 function evaluateGood(params: CellClassParams) {
   const field = params.colDef.field;
   const value = params.value;
-  console.log("evaluateGood", field, value);
   switch (field) {
     case "Premium"       : return false;
     case "Spc copay"     : return value === 0;
@@ -170,7 +166,7 @@ export default <ColDef[]>[
     headerTooltip: "Urgent",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": "x <= -50",
+      "rag-warn": evaluateWarn,
       "rag-fine": "x > -50 && x <= -30",
       "rag-good": "x >= -30 && x < 0",
       "rag-over": evaluateOver,
@@ -181,7 +177,7 @@ export default <ColDef[]>[
     headerTooltip: "MOOP",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": "x <= -8000",
+      "rag-warn": evaluateWarn,
       "rag-fine": "x > -8000 && x <= -4000",
       "rag-good": "x > -4000 && x < 0",
       "rag-zero": "x === 0",
@@ -225,6 +221,7 @@ export default <ColDef[]>[
     cellClassRules: {
       "rag-good": "x >= 400",
       "rag-fine": "x >= 250 && x < 400",
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -232,10 +229,10 @@ export default <ColDef[]>[
     headerTooltip: "Hospital /day",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": "x < -350",
+      "rag-warn": evaluateWarn,
       "rag-fine": "x >= -350 && x < -325",
       "rag-good": "x >= -325 && x < 0",
-      "rag-over": "x > 0",
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -245,7 +242,8 @@ export default <ColDef[]>[
     cellClassRules: {
       "rag-good": "x < 6 && x > 0",
       "rag-fine": "x === 6",
-      "rag-warn": "x > 6",
+      "rag-warn": evaluateWarn,
+      "rag-over": evaluateOver,
     },
   },
   {
@@ -262,10 +260,8 @@ export default <ColDef[]>[
 ];
 
 function evaluateScores(params: ValueGetterParams) {
-  console.log("evaluateScores", params);
   let score = 0;
   for (const [key, value] of Object.entries(params.data)) {
-    console.log('scores element', key, value)
     const params = { colDef: {field: key}, value } as CellClassParams
     if (evaluateWarn(params)) score -= 2;
     if (evaluateFine(params)) score += 1;
