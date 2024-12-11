@@ -12,6 +12,11 @@ function currencyFormatter(value: any) {
 }
 
 function numberValueFormatter(params: ValueFormatterParams) {
+  // Return value if not a number
+  if (typeof params.value !== 'number') {
+    return params.value;
+  }
+  // Return number (rounded down if has decimal partion)
   const value = Math.floor(params.value);
   return numberFormat.format(value);
 }
