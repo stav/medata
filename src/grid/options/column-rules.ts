@@ -1,6 +1,6 @@
-import type { CellClassParams, } from "@ag-grid-community/core";
+import type { CellClassParams, ValueGetterParams, } from "@ag-grid-community/core";
 
-export function evaluateOver(params: CellClassParams) {
+function evaluateOver(params: CellClassParams) {
   const field = params.colDef.field;
   const value = params.value;
   switch (field) {
@@ -22,7 +22,7 @@ export function evaluateOver(params: CellClassParams) {
   }
 }
 
-export function evaluateWarn(params: CellClassParams) {
+function evaluateWarn(params: CellClassParams) {
   const field = params.colDef.field;
   const value = params.value;
   switch (field) {
@@ -44,7 +44,7 @@ export function evaluateWarn(params: CellClassParams) {
   }
 }
 
-export function evaluateFine(params: CellClassParams) {
+function evaluateFine(params: CellClassParams) {
   const field = params.colDef.field;
   const value = params.value;
   switch (field) {
@@ -66,7 +66,7 @@ export function evaluateFine(params: CellClassParams) {
   }
 }
 
-export function evaluateGood(params: CellClassParams) {
+function evaluateGood(params: CellClassParams) {
   const field = params.colDef.field;
   const value = params.value;
   switch (field) {
@@ -86,4 +86,22 @@ export function evaluateGood(params: CellClassParams) {
     default:
       break;
   }
+}
+
+export const cellClassRules = {
+  "rag-good": evaluateGood,
+  "rag-fine": evaluateFine,
+  "rag-warn": evaluateWarn,
+  "rag-over": evaluateOver,
+};
+
+export function evaluateScores(params: ValueGetterParams) {
+  let score = 0;
+  for (const [key, value] of Object.entries(params.data)) {
+    const params = { colDef: { field: key }, value } as CellClassParams;
+    if (evaluateWarn(params)) score -= 2;
+    if (evaluateFine(params)) score += 1;
+    if (evaluateGood(params)) score += 2;
+  }
+  return score;
 }

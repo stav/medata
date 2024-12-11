@@ -1,23 +1,6 @@
-import type {
-  ISetFilterParams,
-  ColDef,
-  CellClassParams,
-  ValueGetterParams,
-} from "@ag-grid-community/core";
+import type { ISetFilterParams, ColDef } from "@ag-grid-community/core";
 
-import {
-  evaluateFine,
-  evaluateGood,
-  evaluateOver,
-  evaluateWarn,
-} from "./column-rules";
-
-const cellClassRules = {
-  "rag-good": evaluateGood,
-  "rag-fine": evaluateFine,
-  "rag-warn": evaluateWarn,
-  "rag-over": evaluateOver,
-};
+import { cellClassRules, evaluateScores } from "./column-rules";
 
 export default <ColDef[]>[
   {
@@ -126,14 +109,3 @@ export default <ColDef[]>[
     },
   },
 ];
-
-function evaluateScores(params: ValueGetterParams) {
-  let score = 0;
-  for (const [key, value] of Object.entries(params.data)) {
-    const params = { colDef: { field: key }, value } as CellClassParams;
-    if (evaluateWarn(params)) score -= 2;
-    if (evaluateFine(params)) score += 1;
-    if (evaluateGood(params)) score += 2;
-  }
-  return score;
-}
