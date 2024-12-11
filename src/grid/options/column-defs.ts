@@ -12,6 +12,13 @@ import {
   evaluateWarn,
 } from "./column-rules";
 
+const cellClassRules = {
+  "rag-good": evaluateGood,
+  "rag-fine": evaluateFine,
+  "rag-warn": evaluateWarn,
+  "rag-over": evaluateOver,
+};
+
 export default <ColDef[]>[
   {
     field: "Year", // overrides valueFormatter unless comparator
@@ -33,136 +40,79 @@ export default <ColDef[]>[
     field: "Premium",
     headerTooltip: "Premium",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-fine": evaluateFine,
-      "rag-warn": evaluateWarn,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "Giveback",
     headerTooltip: "Giveback",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "Spc copay",
     headerTooltip: "Spc copay",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-warn": evaluateWarn,
-    },
+    cellClassRules,
   },
   {
     field: "Ambulance",
     headerTooltip: "Ambulance",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-warn": evaluateWarn,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "ER",
     headerTooltip: "ER",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-warn": evaluateWarn,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "Urgent",
     headerTooltip: "Urgent",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-warn": evaluateWarn,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "MOOP",
     headerTooltip: "MOOP",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-warn": evaluateWarn,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "OTC",
     headerTooltip: "OTC",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "Card",
     headerTooltip: "Card",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "Dental",
     headerTooltip: "Dental",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "Vision",
     headerTooltip: "Vision",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "Hospital /day",
     headerTooltip: "Hospital /day",
     type: ["numerical", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-warn": evaluateWarn,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     field: "Hospital days",
     headerTooltip: "Days / Total",
     type: ["total", "rightAligned"],
-    cellClassRules: {
-      "rag-good": evaluateGood,
-      "rag-fine": evaluateFine,
-      "rag-warn": evaluateWarn,
-      "rag-over": evaluateOver,
-    },
+    cellClassRules,
   },
   {
     headerName: "Score",
