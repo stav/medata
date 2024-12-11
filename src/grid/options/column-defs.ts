@@ -80,14 +80,14 @@ function evaluateGood(params: CellClassParams) {
     case "Giveback"      : return value > 1000;
     case "Ambulance"     : return value >= -200 && value < 0;
     case "ER"            : return value >= -100 && value < 0;
-    case "Urgent"        : return false;
-    case "MOOP"          : return false;
-    case "OTC"           : return false;
-    case "Card"          : return false;
-    case "Dental"        : return false;
-    case "Vision"        : return false;
-    case "Hospital /day" : return false;
-    case "Hospital days" : return false;
+    case "Urgent"        : return value >= -30 && value < 0;
+    case "MOOP"          : return value > -4000 && value < 0;
+    case "OTC"           : return value > 1000;
+    case "Card"          : return value > 1000;
+    case "Dental"        : return value >= 4000;
+    case "Vision"        : return value >= 400;
+    case "Hospital /day" : return value >= -325 && value < 0;
+    case "Hospital days" : return value < 6 && value > 0;
     default:
       break;
   }
@@ -166,7 +166,7 @@ export default <ColDef[]>[
     headerTooltip: "Urgent",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-good": "x >= -30 && x < 0",
+      "rag-good": evaluateGood,
       "rag-fine": evaluateFine,
       "rag-warn": evaluateWarn,
       "rag-over": evaluateOver,
@@ -177,7 +177,7 @@ export default <ColDef[]>[
     headerTooltip: "MOOP",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-good": "x > -4000 && x < 0",
+      "rag-good": evaluateGood,
       "rag-fine": evaluateFine,
       "rag-warn": evaluateWarn,
       "rag-over": evaluateOver,
@@ -188,7 +188,7 @@ export default <ColDef[]>[
     headerTooltip: "OTC",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-good": "x > 1000",
+      "rag-good": evaluateGood,
       "rag-fine": evaluateFine,
       "rag-over": evaluateOver,
     },
@@ -198,7 +198,7 @@ export default <ColDef[]>[
     headerTooltip: "Card",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-good": "x > 1000",
+      "rag-good": evaluateGood,
       "rag-fine": evaluateFine,
       "rag-over": evaluateOver,
     },
@@ -208,7 +208,7 @@ export default <ColDef[]>[
     headerTooltip: "Dental",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-good": "x >= 4000",
+      "rag-good": evaluateGood,
       "rag-fine": evaluateFine,
       "rag-over": evaluateOver,
     },
@@ -218,7 +218,7 @@ export default <ColDef[]>[
     headerTooltip: "Vision",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-good": "x >= 400",
+      "rag-good": evaluateGood,
       "rag-fine": evaluateFine,
       "rag-over": evaluateOver,
     },
@@ -228,9 +228,9 @@ export default <ColDef[]>[
     headerTooltip: "Hospital /day",
     type: ["numerical", "rightAligned"],
     cellClassRules: {
-      "rag-warn": evaluateWarn,
+      "rag-good": evaluateGood,
       "rag-fine": evaluateFine,
-      "rag-good": "x >= -325 && x < 0",
+      "rag-warn": evaluateWarn,
       "rag-over": evaluateOver,
     },
   },
@@ -239,7 +239,7 @@ export default <ColDef[]>[
     headerTooltip: "Days / Total",
     type: ["total", "rightAligned"],
     cellClassRules: {
-      "rag-good": "x < 6 && x > 0",
+      "rag-good": evaluateGood,
       "rag-fine": evaluateFine,
       "rag-warn": evaluateWarn,
       "rag-over": evaluateOver,
@@ -251,9 +251,9 @@ export default <ColDef[]>[
     type: ["score", "rightAligned"],
     valueGetter: (params) => evaluateScores(params),
     cellClassRules: {
-      "rag-warn": "x < 0",
-      "rag-fine": "x >= 0 && x <= 2",
-      "rag-good": "x > 2",
+      "rag-warn": "x < 2",
+      "rag-fine": "x >= 2 && x <= 6",
+      "rag-good": "x > 6",
     },
   },
 ];
