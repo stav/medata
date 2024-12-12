@@ -1,6 +1,8 @@
 @import '@ag-grid-community/styles/ag-grid.css';
 @import '@ag-grid-community/styles/ag-theme-quartz.css';
+@import 'dimbox/src/scss/dimbox.scss';
 
+// AG-Grid cells
 .rag-good {
     background-color: rgba(39, 121, 39, 0.4);
 }
@@ -13,3 +15,8 @@
 .rag-over {
     background-color: rgb(125, 125, 8);
 }
+
+// Dimbox
+$overlay-color-dark: #333;
+$overlay-color-light: #ccc;
+$overlay-opacity: .9;
