@@ -8,15 +8,20 @@ import onFilterChanged from "./on-filter-changed";
 
 import rowData from "../../../data/plans.json";
 
-import type { INoRowsOverlayComp, INoRowsOverlayParams } from '@ag-grid-community/core';
+import type {
+  INoRowsOverlayComp,
+  INoRowsOverlayParams,
+} from "@ag-grid-community/core";
 
-type CustomNoRowsOverlayParams = INoRowsOverlayParams & { noRowsMessageFunc: () => string };
+type CustomNoRowsOverlayParams = INoRowsOverlayParams & {
+  noRowsMessageFunc: () => string;
+};
 
 class CustomNoRowsOverlay implements INoRowsOverlayComp {
   eGui!: HTMLElement;
 
   init(params: CustomNoRowsOverlayParams) {
-    this.eGui = document.createElement('div');
+    this.eGui = document.createElement("div");
     this.refresh(params);
   }
 
@@ -49,18 +54,23 @@ export default <GridOptions>{
   onCellKeyDown: (event: CellKeyDownEvent) => {
     const keyDown = <KeyboardEvent>event.event;
     const key = keyDown.key;
-    const active = key === 'a' && keyDown.ctrlKey === false && keyDown.altKey === false;
+    const active =
+      key === "a" && keyDown.ctrlKey === false && keyDown.altKey === false;
     if (active) {
-      console.log('Key Down:', key, active, event.data);
+      console.log("Key Down:", key, active, event.data);
       const api = event.api;
       const html = `
         <div role="presentation" class="ag-overlay-loading-center" style="background-color: #b4bebe;">
             <i class="far fa-frown" aria-live="polite" aria-atomic="true"> ${event.data} </i>
         </div>
       `;
-      const element = document.createElement('div')
-      element.innerHTML = html
-      api.showNoRowsOverlay();
+      // const element = document.createElement('div')
+      // element.innerHTML = html
+      // api.showNoRowsOverlay();
+      const modal = document.getElementById("modal");
+      const openModalButton = document.getElementById("openModal");
+      const closeModalButton = document.getElementById("closeModal");
+      modal.style.display = 'flex';
     }
   },
   noRowsOverlayComponent: CustomNoRowsOverlay,
