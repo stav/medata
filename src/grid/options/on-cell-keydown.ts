@@ -7,8 +7,11 @@ export default function (event: CellKeyDownEvent) {
   const key = keyDown.key;
   const active = key === 'a' && keyDown.ctrlKey === false && keyDown.altKey === false;
   if (active) {
-    console.log('Key Down:', key, active, event.data);
-    const element = document.getElementById('dimbox');
-    dimbox.open(element)
+    const a = document.getElementById('modal-anchor');
+    const box = document.getElementById('modal-box');
+    if (box) {
+      box.innerHTML = JSON.stringify(event.data);
+      dimbox.open(a);
+    }
   }
 }
