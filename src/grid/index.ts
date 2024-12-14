@@ -17,7 +17,7 @@ ModuleRegistry.registerModules([
 
 import { createGrid } from "@ag-grid-community/core";
 import gridOptions from "./options";
-import "./style.css";
+import "./style.scss";
 
 export default class SimpleGrid {
   constructor() {
