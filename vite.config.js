@@ -1,13 +1,14 @@
 import { defineConfig } from 'vite'
 
+const baseUrl = 'http://rs.medstar.agency'
+
 export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://shop.anthem.com', // Replace with your API's base URL
+        target: baseUrl,
         changeOrigin: true,
         secure: false,
-        method: 'POST',
         logger: console,
         rewrite: path => path.replace(/^\/api/, ''),
         configure: (proxy, _options) => {
@@ -15,14 +16,13 @@ export default defineConfig({
             console.log('proxy error', err)
           })
           proxy.on('proxyReq', (proxyReq, req, _res) => {
-            console.log('Sending Request to the Target:', req.method, `"${req.url}"`)
+            const path = req.url
+            const url = `"${baseUrl}${path}"`
+            console.log('Sending Request:', req.method, url)
           })
           proxy.on('proxyRes', (proxyRes, req, _res) => {
-            console.log(
-              'Received Response from the Target:',
-              proxyRes.statusCode,
-              req.url
-            )
+            const path = req.url
+            console.log('Received Response:', proxyRes.statusCode, path)
           })
         }
       }
