@@ -18,11 +18,11 @@ export default defineConfig({
           proxy.on('proxyReq', (proxyReq, req, _res) => {
             const path = req.url
             const url = `"${baseUrl}${path}"`
-            console.log('Sending Request:', req.method, url)
+            console.log('Proxy Send Req:', req.method, url, req.headers)
           })
           proxy.on('proxyRes', (proxyRes, req, _res) => {
             const path = req.url
-            console.log('Received Response:', proxyRes.statusCode, path)
+            console.log('Proxy Recv Res:', proxyRes.statusCode, path)
           })
         }
       }
