@@ -3,6 +3,7 @@
 
 @import '@sweetalert2/theme-dark/dark.scss';
 
+// AG-Grid cells
 .rag-good {
     background-color: rgba(39, 121, 39, 0.4);
 }
@@ -14,4 +15,9 @@
 }
 .rag-over {
     background-color: rgb(125, 125, 8);
+}
+
+// Sweet Alert
+#swal2-html-container pre  {
+    text-align: left;
 }
