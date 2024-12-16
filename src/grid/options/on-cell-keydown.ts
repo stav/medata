@@ -24,8 +24,9 @@ export default async function (event: CellKeyDownEvent) {
 }
 
 async function gogetit() {
-  // const url = "/api/medicare/accessgateway/getPlanSummary";
-  const url = "/api?uri=http://example.com";
+  // const url = "/api?uri=https://shop.anthem.com/medicare/accessgateway/getPlanSummary";
+  // const url = "/api?uri=https://shop.anthem.com/medicare/quote/view-all-plans-ma?brand=ANTHEM&state=OH&zipcode=44035&county=LORAIN&CvgEffDate=012025";
+  const url = "/api?uri=https://httpbin.org/anything";
   const response = await fetch(url, {
     credentials: "include",
     headers: {
@@ -41,11 +42,14 @@ async function gogetit() {
       "Sec-Fetch-Dest": "empty",
       "Sec-Fetch-Mode": "cors",
       "Sec-Fetch-Site": "same-origin",
+      TE: "trailers",
+      // Origin: "https://shop.anthem.com",
+      Origin: "https://httpbin.org",
     },
     referrer:
       "https://shop.anthem.com/medicare/quote/view-all-plans-ma?state=OH&brand=ABCBS&role=consumer&locale=en_US",
-    // body: '{"planSummaryRequest":{"brand":"ANTHEM","productTypes":{"productType":["MEDICAL","DRUG"]},"marketSegment":"SENIOR","zipCode":"44035","county":"LORAIN","state":"OH","coverageTypes":{"coverageType":["ALL"]},"coverageEffectiveDate":"2025-01-01","applicants":{"applicant":[{"applicantType":"PRIMARY","dateOfBirth":"1952-01-01","gender":"MALE"}]},"benefitsRequest":"YES","rateRequest":"YES","countyCode":"39093","event":"Cart","channel":"OLS"}}',
-    // method: "POST",
+    body: '{"planSummaryRequest":{"brand":"ANTHEM","productTypes":{"productType":["MEDICAL","DRUG"]},"marketSegment":"SENIOR","zipCode":"44035","county":"LORAIN","state":"OH","coverageTypes":{"coverageType":["ALL"]},"coverageEffectiveDate":"2025-01-01","applicants":{"applicant":[{"applicantType":"PRIMARY","dateOfBirth":"1952-01-01","gender":"MALE"}]},"benefitsRequest":"YES","rateRequest":"YES","countyCode":"39093","event":"Cart","channel":"OLS"}}',
+    method: "POST",
     mode: "cors",
   });
   const data = await response.json();
